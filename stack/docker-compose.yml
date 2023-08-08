@@ -8,7 +8,7 @@ services:
             network: host
             args:
                 - ELASTICSEARCH_VERSION=${ELASTICSEARCH_VERSION:-8.9.0}
-        env_file: .env_elasticsearch_${ENV_FILE_VERSION:-7}
+        env_file: .env_elasticsearch_${ENV_FILE_VERSION:-8}
         environment:
             - node.name=es-stack-1
             - cluster.initial_master_nodes=es-stack-1
@@ -30,7 +30,7 @@ services:
 
     kibana:
         image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION:-8.9.0}
-        env_file: .env_kibana_${ENV_FILE_VERSION:-7}
+        env_file: .env_kibana_${ENV_FILE_VERSION:-8}
         environment:
             - ELASTICSEARCH_HOSTS="http://elasticsearch:9200"
         ports:
@@ -46,7 +46,7 @@ services:
             network: host
             args:
                 - LOGSTASH_VERSION=${LOGSTASH_VERSION:-8.9.0}
-        env_file: .env_logstash-data-loader_${ENV_FILE_VERSION:-7}
+        env_file: .env_logstash-data-loader_${ENV_FILE_VERSION:-8}
         ports:
             - "${LOGSTASH_PORT:-9600}:9600"
         depends_on:
