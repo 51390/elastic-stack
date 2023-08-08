@@ -1,6 +1,6 @@
 ARG ELASTICSEARCH_VERSION
 
-FROM docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION:-7.12.0}
+FROM docker.elastic.co/elasticsearch/elasticsearch:${ELASTICSEARCH_VERSION:-8.9.0}
 
 COPY config/elasticsearch.yml /tmp/elasticsearch.yml
 
