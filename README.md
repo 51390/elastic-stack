@@ -23,7 +23,7 @@ $ make run
 
 Will bring up a single-node ES cluster with a Kibana instance to match.
 
-Versions default to 7.3.2 but can be changed with:
+Versions default to 8.9.0 but can be changed with:
 
 ```
 $ VERSION=<version> make run
@@ -34,6 +34,9 @@ E.g.:
 ```
 $ VERSION=8.0.0 make run
 ```
+
+Note that for major versions other than 8, some changes or additions may be required
+in the configuration. You can use .env files for a given major version to achieve that.
 
 If not already created `.env` files are initialized in the `stack` directory:
 

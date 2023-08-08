@@ -1,4 +1,5 @@
 
+PROTOCOL="https"
 ES_HOST=${2:-elasticsearch}
 TEMPLATES_DIR=$1
 
@@ -13,4 +14,4 @@ up
 while [ $? == 0 ]; do sleep 1; up; done
 
 
-for f in $(ls $TEMPLATES_DIR); do echo "Loading template $f"; curl -XPUT "$ES_HOST:9200/_template/`echo -n $f | sed 's/\..*//g'`" -d @"$TEMPLATES_DIR/$f" -H 'Content-Type: application/json';  done
+for f in $(ls $TEMPLATES_DIR); do echo "Loading template $f"; curl -XPUT -k "$PROTOCOL://$ES_HOST:9200/_template/`echo -n $f | sed 's/\..*//g'`" -d @"$TEMPLATES_DIR/$f" -H 'Content-Type: application/json';  done

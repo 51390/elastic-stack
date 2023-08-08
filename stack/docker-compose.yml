@@ -7,14 +7,15 @@ services:
             context: custom/elasticsearch
             network: host
             args:
-                - ELASTICSEARCH_VERSION=${ELASTICSEARCH_VERSION:-7.12.0}
+                - ELASTICSEARCH_VERSION=${ELASTICSEARCH_VERSION:-8.9.0}
         env_file: .env_elasticsearch_${ENV_FILE_VERSION:-7}
         environment:
             - node.name=es-stack-1
             - cluster.initial_master_nodes=es-stack-1
-            - bootstrap.system_call_filter=false
-            - ELASTIC_USERNAME=admin
-            - ELASTIC_PASSWORD=elastic
+            - xpack.security.enabled=false
+            - xpack.security.enrollment.enabled=false
+              #- ELASTIC_USERNAME=admin
+              #- ELASTIC_PASSWORD=elastic
         ports:
             - "${ELASTICSEARCH_PORT:-9200}:9200"
         networks:
@@ -28,7 +29,7 @@ services:
               target: /snapshots
 
     kibana:
-        image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION:-7.12.0}
+        image: docker.elastic.co/kibana/kibana:${KIBANA_VERSION:-8.9.0}
         env_file: .env_kibana_${ENV_FILE_VERSION:-7}
         environment:
             - ELASTICSEARCH_HOSTS="http://elasticsearch:9200"
@@ -44,7 +45,7 @@ services:
             context: custom/logstash-data-loader
             network: host
             args:
-                - LOGSTASH_VERSION=${LOGSTASH_VERSION:-7.12.0}
+                - LOGSTASH_VERSION=${LOGSTASH_VERSION:-8.9.0}
         env_file: .env_logstash-data-loader_${ENV_FILE_VERSION:-7}
         ports:
             - "${LOGSTASH_PORT:-9600}:9600"
